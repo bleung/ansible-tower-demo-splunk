@@ -1,0 +1,10 @@
+---
+- name: Install splunk
+  hosts: splunk
+  roles:
+  - name: splunk
+
+- name: Install and provision Ansible Tower
+  hosts: towervm
+  roles:
+  - name: tower
