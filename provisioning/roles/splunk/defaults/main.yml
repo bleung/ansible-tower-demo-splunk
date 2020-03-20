@@ -1,0 +1,3 @@
+---
+splunk_admin_pass: password123
+splunk_http_token: ansibletowertoken

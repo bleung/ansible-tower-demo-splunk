@@ -23,7 +23,7 @@ Vagrant.configure("2") do |cluster|
     config.vm.hostname = "tower"
 
     config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "site.yml"
+      ansible.playbook = "provisioning/site.yml"
       ansible.limit = "all"
       ansible.become = true
       ansible.groups = {
@@ -31,25 +31,21 @@ Vagrant.configure("2") do |cluster|
         "towervm" => ["tower"],
         "demovm" => ["demovm1", "demovm2", "demovm3", "demovm4"]
       }
-      #ansible.galaxy_role_file = "requirements.yml"
-    end
-
-    config.vm.network :forwarded_port,
-      guest: 443,
-      host: 443,
-      host_ip: "192.168.1.100"
-
-  end
-
-  (1..1).each do |i|
-    cluster.vm.define "demovm#{i}" do |config|
-      config.vm.box = "centos/7"
-      config.ssh.insert_key = false
-      config.vm.provider :libvirt do |v|
-        v.memory = 512
-      end
-      config.vm.hostname = "demovm#{i}"
+      ansible.host_vars = {
+        "splunk" => {"splunk_http_token" => "ansibletowertoken"}
+      }
     end
   end
+
+#  (1..1).each do |i|
+#    cluster.vm.define "demovm#{i}" do |config|
+#      config.vm.box = "centos/7"
+#      config.ssh.insert_key = false
+#      config.vm.provider :libvirt do |v|
+#        v.memory = 512
+#     end
+#      config.vm.hostname = "demovm#{i}"
+#    end
+#  end
 
 end

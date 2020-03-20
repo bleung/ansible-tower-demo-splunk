@@ -1,0 +1,3 @@
+---
+- name: restart splunkd
+  command: "/opt/splunk/bin/splunk restart"
