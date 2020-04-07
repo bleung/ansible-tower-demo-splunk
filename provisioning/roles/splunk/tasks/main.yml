@@ -45,17 +45,3 @@
     owner: splunk
     group: splunk
   notify: restart splunkd
-
-
-
-
-
-
-#As of now, these commands need to be run manually as the root user on the vagrant box.
-#These commands interactively prompt for license agreement and admin credentials.
-#- name: Enable Splunk service
-#  command: "{{ item }}"
-#  loop:
-#  - /opt/splunk/bin/splunk enable boot-start -systemd-managed 1 -user splunk
-#  - /opt/splunk/bin/splunk start
-#The Splunk web page can be accessed on port 8000
