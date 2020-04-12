@@ -45,3 +45,14 @@
     owner: splunk
     group: splunk
   notify: restart splunkd
+
+- name: Create dashboard
+  uri:
+    url: "https://{{ inventory_hostname }}:8089/servicesNS/admin/search/data/ui/views/"
+    user: admin
+    password: "{{ splunk_admin_pass }}"
+    body: "{{ lookup('file', 'dashboard_data.txt') }}"
+    method: POST
+    validate_certs: false
+    status_code: [201,409]
+  delegate_to: localhost
